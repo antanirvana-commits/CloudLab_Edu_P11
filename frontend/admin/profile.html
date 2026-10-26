@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Profil Admin - CloudLab Edu</title><link rel="stylesheet" href="/static/app.css?v=1.3.6"><link rel="stylesheet" href="/static/admin-v2.css?v=1.3.6"></head>
+<body class="admin-surface" data-page="profile"><script src="/static/auth.js?v=1.3.6"></script><script>requireRole("admin");</script>
+<div class="layout"><aside class="sidebar admin-sidebar">
+  <div class="brand admin-brand">
+    <span class="brand-mark">☁</span>
+    <span class="brand-copy"><b>CloudLab Edu</b><small>Admin Console</small></span>
+  </div>
+  <nav class="nav admin-nav">
+    <div class="nav-section">Workspace</div>
+    <a href="/admin/index.html" data-nav="/admin/index.html"><span class="nav-icon">⌂</span><span class="nav-label">Dashboard</span></a>
+
+    <div class="nav-section">Administrasi</div>
+    <div class="nav-group">
+      <button class="nav-toggle" type="button"><span class="nav-icon">▦</span><span class="nav-label">Kelola Data</span><span class="chev">›</span></button>
+      <div class="nav-flyout">
+        <div class="flyout-title">Kelola Data</div>
+        <a href="/admin/users.html" data-nav="/admin/users.html"><span>👥</span><span><b>Mahasiswa</b><small>Tambah, edit, hapus data</small></span></a>
+        <a href="/admin/practicums.html" data-nav="/admin/practicums.html"><span>▣</span><span><b>Praktikum</b><small>Monitoring seluruh praktikum</small></span></a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-toggle" type="button"><span class="nav-icon">◫</span><span class="nav-label">Monitoring</span><span class="chev">›</span></button>
+      <div class="nav-flyout">
+        <div class="flyout-title">Monitoring</div>
+        <a href="/admin/analytics.html" data-nav="/admin/analytics.html"><span>📊</span><span><b>System Analytics</b><small>Event dan aktivitas Cloud Lab</small></span></a>
+        <a href="/admin/system-status.html" data-nav="/admin/system-status.html"><span>⚙</span><span><b>System Status</b><small>Health, database, environment</small></span></a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-toggle" type="button"><span class="nav-icon">⌘</span><span class="nav-label">Developer</span><span class="chev">›</span></button>
+      <div class="nav-flyout">
+        <div class="flyout-title">Developer Tools</div>
+        <a href="/admin/api-lab.html" data-nav="/admin/api-lab.html"><span>🧪</span><span><b>API & Validation Lab</b><small>Demo request, validation, error</small></span></a>
+        <a href="#" onclick="openAdminDocs();return false"><span>⌘</span><span><b>API / Swagger</b><small>Dokumentasi endpoint Admin</small></span></a>
+      </div>
+    </div>
+
+    <div class="nav-section">Akun</div>
+    <a href="/admin/profile.html" data-nav="/admin/profile.html"><span class="nav-icon">◉</span><span class="nav-label">Profil Saya</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="status-dot"></span>
+    <div><b>Admin Workspace</b><small>RBAC protected</small></div>
+  </div>
+</aside><main class="main admin-main"><header class="topbar admin-topbar">
+  <div class="topbar-left">
+    <div class="crumb"><span>CloudLab Edu</span><b>/</b><span>Admin</span><b>/</b><strong>Profil Saya</strong></div>
+  </div>
+  <div class="user admin-user">
+    <span class="role-chip role-admin">Admin</span>
+    <div class="avatar" data-avatar>CL</div>
+    <div class="user-copy"><b data-user-name>Pengguna</b><div class="muted" data-user-email></div></div>
+    <button class="btn btn-logout" onclick="logout()" title="Keluar dari CloudLab Edu">Keluar</button>
+  </div>
+</header>
+<section class="content admin-content">
+  <div class="page-title admin-page-title">
+    <div><div class="eyebrow">ADMIN CONSOLE</div><h1>Profil Admin</h1><div class="muted">Kelola identitas akun Admin yang sedang digunakan.</div></div>
+    <div class="page-actions"><a class="btn btn-secondary" href="/admin/index.html">← Dashboard</a></div>
+  </div>
+  <div id="page_note" class="notice"></div>
+  
+<div class="profile-layout admin-profile-layout">
+  <section class="section-card admin-profile-summary">
+    <div class="profile-cover"></div><div class="profile-big-avatar admin-avatar" data-avatar>CL</div><h2 data-user-name>Pengguna</h2><span class="role-chip role-admin" data-role-name>Admin</span><p class="muted" data-user-email></p>
+    <div class="profile-divider"></div><div class="profile-meta"><div><span>Workspace</span><strong>Admin Console</strong></div><div><span>Akses</span><strong>Administrasi & Monitoring</strong></div><div><span>Proteksi</span><strong>RBAC</strong></div></div>
+  </section>
+  <section class="section-card"><div class="section-heading"><div><span class="section-kicker">ACCOUNT</span><h3>Edit Profil</h3><p class="muted">Perubahan hanya berlaku untuk identitas akun Admin Anda sendiri.</p></div></div><form id="profileForm" onsubmit="event.preventDefault();saveProfile()"><div class="form-grid two"><div class="field"><label>Username</label><input id="profile_username" disabled></div><div class="field"><label>Role</label><input id="profile_role" disabled></div></div><div class="form-grid two"><div class="field"><label>Nama Lengkap</label><input id="profile_name" required minlength="3"></div><div class="field"><label>Email</label><input id="profile_email" type="email" required></div></div><div id="profile_note" class="notice"></div><div class="form-actions"><button class="btn btn-primary">Simpan Perubahan</button></div></form></section>
+</div>
+</section></main></div>
+<script src="/static/navigation.js?v=1.3.6"></script><script src="/static/app.js?v=1.3.6"></script><script src="/static/cloudlab.js?v=1.3.6"></script></body></html>

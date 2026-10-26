@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kelola Mahasiswa - CloudLab Edu</title><link rel="stylesheet" href="/static/app.css?v=1.3.6"><link rel="stylesheet" href="/static/admin-v2.css?v=1.3.6"></head>
+<body class="admin-surface" data-page="admin-users"><script src="/static/auth.js?v=1.3.6"></script><script>requireRole("admin");</script>
+<div class="layout"><aside class="sidebar admin-sidebar">
+  <div class="brand admin-brand">
+    <span class="brand-mark">☁</span>
+    <span class="brand-copy"><b>CloudLab Edu</b><small>Admin Console</small></span>
+  </div>
+  <nav class="nav admin-nav">
+    <div class="nav-section">Workspace</div>
+    <a href="/admin/index.html" data-nav="/admin/index.html"><span class="nav-icon">⌂</span><span class="nav-label">Dashboard</span></a>
+
+    <div class="nav-section">Administrasi</div>
+    <div class="nav-group">
+      <button class="nav-toggle" type="button"><span class="nav-icon">▦</span><span class="nav-label">Kelola Data</span><span class="chev">›</span></button>
+      <div class="nav-flyout">
+        <div class="flyout-title">Kelola Data</div>
+        <a href="/admin/users.html" data-nav="/admin/users.html"><span>👥</span><span><b>Mahasiswa</b><small>Tambah, edit, hapus data</small></span></a>
+        <a href="/admin/practicums.html" data-nav="/admin/practicums.html"><span>▣</span><span><b>Praktikum</b><small>Monitoring seluruh praktikum</small></span></a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-toggle" type="button"><span class="nav-icon">◫</span><span class="nav-label">Monitoring</span><span class="chev">›</span></button>
+      <div class="nav-flyout">
+        <div class="flyout-title">Monitoring</div>
+        <a href="/admin/analytics.html" data-nav="/admin/analytics.html"><span>📊</span><span><b>System Analytics</b><small>Event dan aktivitas Cloud Lab</small></span></a>
+        <a href="/admin/system-status.html" data-nav="/admin/system-status.html"><span>⚙</span><span><b>System Status</b><small>Health, database, environment</small></span></a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-toggle" type="button"><span class="nav-icon">⌘</span><span class="nav-label">Developer</span><span class="chev">›</span></button>
+      <div class="nav-flyout">
+        <div class="flyout-title">Developer Tools</div>
+        <a href="/admin/api-lab.html" data-nav="/admin/api-lab.html"><span>🧪</span><span><b>API & Validation Lab</b><small>Demo request, validation, error</small></span></a>
+        <a href="#" onclick="openAdminDocs();return false"><span>⌘</span><span><b>API / Swagger</b><small>Dokumentasi endpoint Admin</small></span></a>
+      </div>
+    </div>
+
+    <div class="nav-section">Akun</div>
+    <a href="/admin/profile.html" data-nav="/admin/profile.html"><span class="nav-icon">◉</span><span class="nav-label">Profil Saya</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="status-dot"></span>
+    <div><b>Admin Workspace</b><small>RBAC protected</small></div>
+  </div>
+</aside><main class="main admin-main"><header class="topbar admin-topbar">
+  <div class="topbar-left">
+    <div class="crumb"><span>CloudLab Edu</span><b>/</b><span>Admin</span><b>/</b><strong>Kelola Data / Mahasiswa</strong></div>
+  </div>
+  <div class="user admin-user">
+    <span class="role-chip role-admin">Admin</span>
+    <div class="avatar" data-avatar>CL</div>
+    <div class="user-copy"><b data-user-name>Pengguna</b><div class="muted" data-user-email></div></div>
+    <button class="btn btn-logout" onclick="logout()" title="Keluar dari CloudLab Edu">Keluar</button>
+  </div>
+</header>
+<section class="content admin-content">
+  <div class="page-title admin-page-title">
+    <div><div class="eyebrow">ADMIN CONSOLE</div><h1>Kelola Mahasiswa</h1><div class="muted">Tambah, perbarui, hapus, dan telusuri data mahasiswa.</div></div>
+    <div class="page-actions"><a class="btn btn-secondary" href="/admin/index.html">← Dashboard</a><button class="btn btn-primary" onclick="openStudentModal()">+ Tambah Mahasiswa</button></div>
+  </div>
+  <div id="page_note" class="notice"></div>
+  
+<div class="admin-metrics compact-metrics">
+  <div class="metric-card"><div class="metric-icon metric-purple">👥</div><div><span class="metric-label">Total Mahasiswa</span><strong class="metric-value" id="adminStudentCount">0</strong><small>Data aktif pada direktori</small></div></div>
+  <div class="metric-card"><div class="metric-icon metric-blue">⌕</div><div><span class="metric-label">Hasil Ditampilkan</span><strong class="metric-value" id="adminStudentVisible">0</strong><small>Sesuai pencarian</small></div></div>
+  <div class="metric-card"><div class="metric-icon metric-green">✓</div><div><span class="metric-label">Hak Akses</span><strong class="metric-value small-value">CRUD</strong><small>Admin dapat mengelola data</small></div></div>
+</div>
+
+<section class="section-card table-card">
+  <div class="table-toolbar">
+    <div><span class="section-kicker">DIREKTORI</span><h3>Data Mahasiswa</h3><p class="muted">Kelola data dasar mahasiswa yang digunakan oleh sistem praktikum.</p></div>
+    <div class="toolbar-actions"><label class="search-control"><span>⌕</span><input id="studentSearch" type="search" placeholder="Cari NIM, nama, atau email…" oninput="filterAdminStudents()"></label><button class="btn btn-primary" onclick="openStudentModal()">+ Tambah Mahasiswa</button></div>
+  </div>
+  <div class="table-wrap"><table class="admin-table"><thead><tr><th>ID</th><th>NIM</th><th>Nama Mahasiswa</th><th>Email</th><th>Role</th><th class="text-right">Aksi</th></tr></thead><tbody id="adminStudentRows"></tbody></table></div>
+</section>
+
+<div class="modal-backdrop" id="studentModal" aria-hidden="true" onclick="if(event.target===this)closeStudentModal()">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+    <div class="modal-head"><div><span class="section-kicker">ADMINISTRASI</span><h3 id="studentModalTitle">Tambah Mahasiswa</h3></div><button class="icon-button" type="button" onclick="closeStudentModal()">×</button></div>
+    <form id="studentForm" onsubmit="event.preventDefault();saveAdminStudent()">
+      <input type="hidden" id="student_id">
+      <div class="form-grid two"><div class="field"><label>NIM</label><input id="student_nim" required minlength="5" maxlength="30" placeholder="Contoh: 220501001"></div><div class="field"><label>Nama Lengkap</label><input id="student_name" required minlength="3" maxlength="120" placeholder="Nama mahasiswa"></div></div>
+      <div class="field"><label>Email</label><input id="student_email" type="email" required placeholder="nama@mahasiswa.unmul.ac.id"></div>
+      <div id="student_note" class="notice"></div>
+      <div class="modal-actions"><button class="btn btn-secondary" type="button" onclick="closeStudentModal()">Batal</button><button class="btn btn-primary" type="submit">Simpan Data</button></div>
+    </form>
+  </div>
+</div>
+</section></main></div>
+<script src="/static/navigation.js?v=1.3.6"></script><script src="/static/app.js?v=1.3.6"></script><script src="/static/cloudlab.js?v=1.3.6"></script></body></html>

@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cloudlab-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-practicum_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cloudlab-demo-db}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-practicum_db}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - cloudlab_pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: cloudlab-backend
+    environment:
+      APP_NAME: CloudLab Edu
+      APP_ENV: ${APP_ENV:-development}
+      APP_VERSION: ${APP_VERSION:-1.3.0}
+      APP_SECRET: ${APP_SECRET:-change-this-secret}
+      DEMO_ADMIN_PASSWORD: ${DEMO_ADMIN_PASSWORD:-Admin@123}
+      DEMO_DOSEN_PASSWORD: ${DEMO_DOSEN_PASSWORD:-Dosen@123}
+      DEMO_MAHASISWA_PASSWORD: ${DEMO_MAHASISWA_PASSWORD:-Mhs@12345}
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-cloudlab-demo-db}@postgres:5432/${POSTGRES_DB:-practicum_db}
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+      SIMULATE_HEALTH_FAILURE: ${SIMULATE_HEALTH_FAILURE:-false}
+      ENABLE_FAILURE_DEMO: ${ENABLE_FAILURE_DEMO:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: ./frontend
+    container_name: cloudlab-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+
+volumes:
+  cloudlab_pgdata:

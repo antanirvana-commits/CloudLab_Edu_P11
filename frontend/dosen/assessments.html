@@ -1,0 +1,21 @@
+<!doctype html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Penilaian - CloudLab Edu</title><link href="/static/app.css?v=1.2.3" rel="stylesheet"/><link href="/static/dosen-v2.css?v=1.2.3" rel="stylesheet"/></head>
+<body class="dosen-surface" data-page="assessments"><script src="/static/auth.js?v=1.2.3"></script><script>requireRole("dosen");</script><div class="layout">
+<aside class="sidebar role-sidebar">
+<div class="brand role-brand"><span class="brand-mark">☁</span><span class="brand-copy"><b>CloudLab Edu</b><small>Teaching Workspace</small></span></div>
+<nav class="nav role-nav">
+<div class="nav-section">Workspace</div>
+<a data-nav="/dosen/index.html" href="/dosen/index.html"><span class="nav-icon">⌂</span><span class="nav-label">Dashboard</span></a>
+<div class="nav-section">Pembelajaran</div>
+<div class="nav-group"><button class="nav-toggle" type="button"><span class="nav-icon">▣</span><span class="nav-label">Praktikum</span><span class="chev">›</span></button><div class="nav-flyout"><div class="flyout-title">Praktikum</div><a data-nav="/dosen/practicums.html" href="/dosen/practicums.html"><span>🧪</span><span><b>Kelola Praktikum</b><small>Buat, ubah, dan atur deadline</small></span></a><a data-nav="/dosen/submissions.html" href="/dosen/submissions.html"><span>📥</span><span><b>Submission Mahasiswa</b><small>Pantau tugas yang dikumpulkan</small></span></a></div></div>
+<div class="nav-section">Evaluasi</div>
+<div class="nav-group"><button class="nav-toggle" type="button"><span class="nav-icon">✓</span><span class="nav-label">Penilaian</span><span class="chev">›</span></button><div class="nav-flyout"><div class="flyout-title">Evaluasi</div><a data-nav="/dosen/assessments.html" href="/dosen/assessments.html"><span>✅</span><span><b>Penilaian</b><small>Nilai dan beri feedback</small></span></a><a data-nav="/dosen/reports.html" href="/dosen/reports.html"><span>📄</span><span><b>Laporan</b><small>Rekap submission dan nilai</small></span></a></div></div>
+<div class="nav-section">Insight</div>
+<a data-nav="/dosen/analytics.html" href="/dosen/analytics.html"><span class="nav-icon">◫</span><span class="nav-label">Learning Analytics</span></a>
+<div class="nav-section">Akun</div>
+<a data-nav="/dosen/profile.html" href="/dosen/profile.html"><span class="nav-icon">◉</span><span class="nav-label">Profil Saya</span></a>
+</nav><div class="sidebar-footer"><span class="status-dot"></span><div><b>Dosen Workspace</b><small>RBAC protected</small></div></div></aside>
+<main class="main role-main"><header class="topbar role-topbar"><div class="crumb"><span>CloudLab Edu</span><b>/</b><span>Dosen</span><b>/</b><strong>Penilaian</strong></div><div class="user role-user"><span class="role-chip role-dosen">Dosen</span><div class="avatar" data-avatar="">CL</div><div class="user-copy"><b data-user-name="">Pengguna</b><div class="muted" data-user-email=""></div></div><button class="btn btn-logout" onclick="logout()">Keluar</button></div></header>
+<section class="content role-content"><div class="page-title role-page-title"><div><h1>Penilaian</h1><div class="muted">Nilai submission dan berikan feedback.</div></div></div><div class="notice" id="page_note"></div><div class="panel" style="margin-top:0"><h3>Daftar Penilaian</h3><table><thead><tr><th>Submission</th><th>Praktikum</th><th>Kelompok</th><th>Waktu</th><th>Nilai</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="assessmentRows"></tbody></table></div></section></main></div>
+<script src="/static/navigation.js?v=1.2.3"></script><script src="/static/app.js?v=1.2.3"></script><script src="/static/cloudlab.js?v=1.2.3"></script></body></html>

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Virtual environment
+backend/.venv/
+.venv/
+
+# Environment / secrets
+.env
+backend/.env
+*.env
+
+# Database lokal
+*.db
+*.sqlite
+*.sqlite3
+
+# Archive / backup
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
