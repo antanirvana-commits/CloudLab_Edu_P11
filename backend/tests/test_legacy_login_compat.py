@@ -22,7 +22,8 @@ def test_login_survives_legacy_invalid_email():
         assert response.status_code == 200, response.text
         data = response.json()
         assert data["user"]["username"] == "mahasiswa"
-        assert data["user"]["email"] == "legacy-invalid-email"
+        assert data["user"]["email"] == "mahasiswa@cloudlab.example.com"
+        assert data["user"]["role"] == "mahasiswa"
     finally:
         with SessionLocal() as db:
             user = db.query(User).filter(User.username == "mahasiswa").first()
